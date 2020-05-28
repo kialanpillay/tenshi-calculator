@@ -8,46 +8,128 @@ export default class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '0',
+      equation: [],
+      input: 0,
       result: 0,
+      isOperation: false,
+      operation: '',
+      solve: false,
     };
     this.add = this.add.bind(this);
     this.subtract = this.subtract.bind(this);
     this.multiply = this.multiply.bind(this);
     this.divide = this.divide.bind(this);
+    this.negate = this.negate.bind(this);
     this.digit = this.digit.bind(this);
+    this.equals = this.equals.bind(this);
     this.clear = this.clear.bind(this);
   }
 
   digit(value) {
-    if (this.state.text.length <= 6) {
-      if (this.state.text == '0') {
-        this.setState({text: value.toString()});
-      } else {
-        if (this.state.text.length == 3) {
-          newValue = this.state.text + ' ' + value.toString();
-          this.setState({text: newValue.toString()});
+    if (this.state.isOperation) {
+      this.setState({isOperation: false});
+      this.setState({operation: ''});
+      this.setState({input: value});
+    } else {
+      if (this.state.input.toString().length <= 6) {
+        if (this.state.input == 0 || this.state.solve) {
+          this.setState({input: value});
         } else {
-          newValue = this.state.text + value.toString();
-          this.setState({text: newValue.toString()});
+          if (this.state.input.toString() == 3) {
+            newValue = this.state.input + ' ' + value.toString();
+            this.setState({input: newValue});
+          } else {
+            newValue = this.state.input + value.toString();
+            this.setState({input: newValue});
+          }
         }
       }
     }
   }
 
-  add() {}
+  negate(){
+    this.setState({input: -this.state.input});
+  }
 
-  subtract() {}
+  add() {
+    if (this.state.isOperation == true) {
+        this.state.equation[this.state.equation.length-1] = 'a';
+        this.setState({operation: 'a'});
 
-  multiply() {}
+      } else {
+        this.state.equation.push(this.state.input);
+        this.state.equation.push('a');
+        this.setState({isOperation: true, operation: 'a'});
+      }
+  }
 
-  divide() {}
+  subtract() {
+    if (this.state.isOperation == true) {
+        this.state.equation[this.state.equation.length-1] = 's';
+        this.setState({ operation: 's'});
+      } else {
+        this.state.equation.push(this.state.input);
+        this.state.equation.push('s');
+        this.setState({isOperation: true, operation: 's'});
+      }
+  }
 
-  clear(){
-      this.setState({
-          result: 0,
-          text: '0',
-      })
+  multiply() {
+    if (this.state.isOperation == true) {
+        this.state.equation[this.state.equation.length-1] = 'm';
+        this.setState({operation: 'm'});
+      } else {
+        this.state.equation.push(this.state.input);
+        this.state.equation.push('m');
+        this.setState({isOperation: true, operation: 'm'});
+      }
+  }
+
+  divide() {
+    if (this.state.isOperation == true) {
+      this.state.equation[this.state.equation.length-1] = 'd';
+      this.setState({operation: 'd'});
+    } else {
+      this.state.equation.push(this.state.input);
+      this.state.equation.push('d');
+      this.setState({isOperation: true, operation: 'd'});
+    }
+  }
+
+  equals() {
+    this.state.equation.push(this.state.input);
+
+    let equation = this.state.equation;
+    console.log(equation)
+    let result = Number(equation[0]);
+    for (let i = 1; i < equation.length; i += 2) {
+      if (equation[i] == 'a') {
+        result += equation[i+1];
+      } else if (equation[i] == 's') {
+        result -= equation[i+1];
+      }
+      else if (equation[i] == 'm') {
+        result *= equation[i+1];
+      }
+      else if (equation[i] == 'd') {
+        result /= equation[i+1];
+      }
+    }
+    this.setState({
+        result: result,
+        input: result.toString(),
+        equation: [],
+        operation: '',
+      });
+  }
+
+  clear() {
+    this.setState({
+      result: 0,
+      input: '0',
+      equation: [],
+      operation: '',
+    });
   }
 
   render() {
@@ -55,7 +137,7 @@ export default class Calculator extends React.Component {
       <>
         <View style={styles.body}>
           <View style={styles.sectionContainer}>
-            <Text style={styles.screenText}>{this.state.text}</Text>
+            <Text style={styles.screenText}>{this.state.input}</Text>
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.lightGreyButton}
@@ -65,7 +147,8 @@ export default class Calculator extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.lightGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.negate()}>
                 <Text style={styles.darkButtonText}>+-</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -74,10 +157,21 @@ export default class Calculator extends React.Component {
                 <Text style={styles.percentageSymbolText}>%</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  this.state.operation == 'd'
+                    ? styles.whiteButton
+                    : styles.orangeButton
+                }
                 activeOpacity={0.6}
-                onClick={this.divide}>
-                <Text style={styles.symbolText}>÷</Text>
+                onPress={() => this.divide()}>
+                <Text
+                  style={
+                    this.state.operation == 'd'
+                      ? styles.invertedText
+                      : styles.symbolText
+                  }>
+                  ÷
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
@@ -100,10 +194,21 @@ export default class Calculator extends React.Component {
                 <Text style={styles.buttonText}>9</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  this.state.operation == 'm'
+                    ? styles.whiteButton
+                    : styles.orangeButton
+                }
                 activeOpacity={0.6}
-                onClick={this.multiply}>
-                <Text style={styles.symbolText}>×</Text>
+                onPress={() => this.multiply()}>
+                <Text
+                  style={
+                    this.state.operation == 'm'
+                      ? styles.invertedText
+                      : styles.symbolText
+                  }>
+                  ×
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
@@ -126,10 +231,21 @@ export default class Calculator extends React.Component {
                 <Text style={styles.buttonText}>6</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  this.state.operation == 's'
+                    ? styles.whiteButton
+                    : styles.orangeButton
+                }
                 activeOpacity={0.6}
-                onClick={this.subtract}>
-                <Text style={styles.symbolText}>−</Text>
+                onPress={() => this.subtract()}>
+                <Text
+                  style={
+                    this.state.operation == 's'
+                      ? styles.invertedText
+                      : styles.symbolText
+                  }>
+                  −
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
@@ -152,22 +268,33 @@ export default class Calculator extends React.Component {
                 <Text style={styles.buttonText}>3</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  this.state.operation == 'a'
+                    ? styles.whiteButton
+                    : styles.orangeButton
+                }
                 activeOpacity={0.6}
-                onClick={this.add}>
-                <Text style={styles.symbolText}>+</Text>
+                onPress={() => this.add()}>
+                <Text
+                  style={
+                    this.state.operation == 'a'
+                      ? styles.invertedText
+                      : styles.symbolText
+                  }>
+                  +
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
               <TouchableOpacity style={styles.longButton} activeOpacity={0.6}>
-                <Text style={styles.longButtonText}>0</Text>
+                <Text style={styles.longButtonText} onPress={() => this.digit(0)}>0</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
                 activeOpacity={0.6}>
                 <Text style={styles.buttonText}>,</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.orangeButton} activeOpacity={0.6}>
+              <TouchableOpacity style={styles.orangeButton} activeOpacity={0.6} onPress={() => this.equals()}>
                 <Text style={styles.symbolText}>=</Text>
               </TouchableOpacity>
             </View>
@@ -213,6 +340,13 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginTop: 180,
     marginBottom: 16,
+  },
+  whiteButton: {
+    backgroundColor: '#FFFFFF',
+    width: 80,
+    height: 80,
+    borderRadius: 100,
+    marginRight: 16,
   },
   orangeButton: {
     backgroundColor: '#F39C12',
@@ -264,6 +398,13 @@ const styles = StyleSheet.create({
   symbolText: {
     fontSize: 40,
     color: 'white',
+    textAlign: 'center',
+    marginTop: 14,
+    fontWeight: '500',
+  },
+  invertedText: {
+    fontSize: 40,
+    color: '#F39C12',
     textAlign: 'center',
     marginTop: 14,
     fontWeight: '500',
