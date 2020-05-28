@@ -7,6 +7,47 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 export default class Calculator extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      text: '0',
+      result: 0,
+    };
+    this.add = this.add.bind(this);
+    this.subtract = this.subtract.bind(this);
+    this.multiply = this.multiply.bind(this);
+    this.divide = this.divide.bind(this);
+    this.digit = this.digit.bind(this);
+    this.clear = this.clear.bind(this);
+  }
+
+  digit(value) {
+    if (this.state.text.length <= 6) {
+      if (this.state.text == '0') {
+        this.setState({text: value.toString()});
+      } else {
+        if (this.state.text.length == 3) {
+          newValue = this.state.text + ' ' + value.toString();
+          this.setState({text: newValue.toString()});
+        } else {
+          newValue = this.state.text + value.toString();
+          this.setState({text: newValue.toString()});
+        }
+      }
+    }
+  }
+
+  add() {}
+
+  subtract() {}
+
+  multiply() {}
+
+  divide() {}
+
+  clear(){
+      this.setState({
+          result: 0,
+          text: '0',
+      })
   }
 
   render() {
@@ -14,11 +55,12 @@ export default class Calculator extends React.Component {
       <>
         <View style={styles.body}>
           <View style={styles.sectionContainer}>
-            <Text style={styles.screenText}> 69</Text>
+            <Text style={styles.screenText}>{this.state.text}</Text>
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.lightGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={this.clear}>
                 <Text style={styles.darkButtonText}>C</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -33,80 +75,91 @@ export default class Calculator extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.orangeButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onClick={this.divide}>
                 <Text style={styles.symbolText}>÷</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(7)}>
                 <Text style={styles.buttonText}>7</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(8)}>
                 <Text style={styles.buttonText}>8</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(9)}>
                 <Text style={styles.buttonText}>9</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.orangeButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onClick={this.multiply}>
                 <Text style={styles.symbolText}>×</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(4)}>
                 <Text style={styles.buttonText}>4</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(5)}>
                 <Text style={styles.buttonText}>5</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(6)}>
                 <Text style={styles.buttonText}>6</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.orangeButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onClick={this.subtract}>
                 <Text style={styles.symbolText}>−</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(1)}>
                 <Text style={styles.buttonText}>1</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(2)}>
                 <Text style={styles.buttonText}>2</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.digit(3)}>
                 <Text style={styles.buttonText}>3</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.orangeButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onClick={this.add}>
                 <Text style={styles.symbolText}>+</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.row}>
-              <TouchableOpacity
-                style={styles.longButton}
-                activeOpacity={0.6}>
+              <TouchableOpacity style={styles.longButton} activeOpacity={0.6}>
                 <Text style={styles.longButtonText}>0</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -114,9 +167,7 @@ export default class Calculator extends React.Component {
                 activeOpacity={0.6}>
                 <Text style={styles.buttonText}>,</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.orangeButton}
-                activeOpacity={0.6}>
+              <TouchableOpacity style={styles.orangeButton} activeOpacity={0.6}>
                 <Text style={styles.symbolText}>=</Text>
               </TouchableOpacity>
             </View>
@@ -156,7 +207,7 @@ const styles = StyleSheet.create({
   },
   screenText: {
     width: '96%',
-    fontSize: 72,
+    fontSize: 80,
     fontWeight: '300',
     color: 'white',
     textAlign: 'right',
@@ -230,5 +281,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     fontWeight: '500',
-  }
+  },
 });
