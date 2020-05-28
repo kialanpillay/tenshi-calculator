@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginBottom: 16,
+    marginBottom: 14,
   },
   sectionContainer: {
     marginTop: 64,
@@ -155,11 +155,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   screenText: {
-    width: '95%',
+    width: '96%',
     fontSize: 72,
     fontWeight: '300',
     color: 'white',
     textAlign: 'right',
+    marginTop: 180,
     marginBottom: 16,
   },
   orangeButton: {
