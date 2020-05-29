@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Linking} from 'react-native';
 import 'react-native-gesture-handler';
-import call from 'react-native-phone-call';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default class Calculator extends React.Component {
