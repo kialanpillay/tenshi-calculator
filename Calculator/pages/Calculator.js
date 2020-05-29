@@ -27,12 +27,12 @@ export default class Calculator extends React.Component {
 
   digit(value) {
     if (this.state.isOperation) {
-      this.setState({isOperation: false});
-      this.setState({operation: ''});
-      this.setState({input: value});
+      this.setState({isOperation: false, operation: '', input: value});
+    } else if (this.state.solve) {
+      this.setState({solve: false, input: value});
     } else {
       if (this.state.input.toString().length <= 6) {
-        if (this.state.input == 0 || this.state.solve) {
+        if (this.state.input == 0) {
           this.setState({input: value});
         } else {
           newValue = this.state.input + value.toString();
@@ -100,13 +100,21 @@ export default class Calculator extends React.Component {
       prompt: false,
     };
 
+    const gbvCommandCentre = {
+      number: '0800150150',
+      prompt: false,
+    };
+
     if (type == 'A') {
       call(ambulance);
     } else if (type == 'N') {
-      call(national);
-    }
-    else if (type == 'D') {
+      call(nationalEmergencyHotline);
+    } else if (type == 'D') {
       call(domesticViolenceHotline);
+    } else if (type == 'C') {
+      call(childline);
+    } else if (type == 'G') {
+      call(gbvCommandCentre);
     }
   }
 
@@ -140,6 +148,7 @@ export default class Calculator extends React.Component {
     }
     this.setState({
       input: result,
+      solve: true,
       equation: [],
       operation: '',
     });
@@ -261,7 +270,8 @@ export default class Calculator extends React.Component {
                     : styles.orangeButton
                 }
                 activeOpacity={0.6}
-                onPress={() => this.subtract()}>
+                onPress={() => this.subtract()}
+                onLongPress={() => this.emergencyCall('G')}>
                 <Text
                   style={
                     this.state.operation == 's'
