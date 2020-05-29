@@ -35,59 +35,53 @@ export default class Calculator extends React.Component {
         if (this.state.input == 0 || this.state.solve) {
           this.setState({input: value});
         } else {
-          if (this.state.input.toString() == 3) {
-            newValue = this.state.input + ' ' + value.toString();
-            this.setState({input: newValue});
-          } else {
-            newValue = this.state.input + value.toString();
-            this.setState({input: newValue});
-          }
+          newValue = this.state.input + value.toString();
+          this.setState({input: Number(newValue)});
         }
       }
     }
   }
 
-  negate(){
+  negate() {
     this.setState({input: -this.state.input});
   }
 
   add() {
     if (this.state.isOperation == true) {
-        this.state.equation[this.state.equation.length-1] = 'a';
-        this.setState({operation: 'a'});
-
-      } else {
-        this.state.equation.push(this.state.input);
-        this.state.equation.push('a');
-        this.setState({isOperation: true, operation: 'a'});
-      }
+      this.state.equation[this.state.equation.length - 1] = 'a';
+      this.setState({operation: 'a'});
+    } else {
+      this.state.equation.push(this.state.input);
+      this.state.equation.push('a');
+      this.setState({isOperation: true, operation: 'a'});
+    }
   }
 
   subtract() {
     if (this.state.isOperation == true) {
-        this.state.equation[this.state.equation.length-1] = 's';
-        this.setState({ operation: 's'});
-      } else {
-        this.state.equation.push(this.state.input);
-        this.state.equation.push('s');
-        this.setState({isOperation: true, operation: 's'});
-      }
+      this.state.equation[this.state.equation.length - 1] = 's';
+      this.setState({operation: 's'});
+    } else {
+      this.state.equation.push(this.state.input);
+      this.state.equation.push('s');
+      this.setState({isOperation: true, operation: 's'});
+    }
   }
 
   multiply() {
     if (this.state.isOperation == true) {
-        this.state.equation[this.state.equation.length-1] = 'm';
-        this.setState({operation: 'm'});
-      } else {
-        this.state.equation.push(this.state.input);
-        this.state.equation.push('m');
-        this.setState({isOperation: true, operation: 'm'});
-      }
+      this.state.equation[this.state.equation.length - 1] = 'm';
+      this.setState({operation: 'm'});
+    } else {
+      this.state.equation.push(this.state.input);
+      this.state.equation.push('m');
+      this.setState({isOperation: true, operation: 'm'});
+    }
   }
 
   divide() {
     if (this.state.isOperation == true) {
-      this.state.equation[this.state.equation.length-1] = 'd';
+      this.state.equation[this.state.equation.length - 1] = 'd';
       this.setState({operation: 'd'});
     } else {
       this.state.equation.push(this.state.input);
@@ -100,27 +94,25 @@ export default class Calculator extends React.Component {
     this.state.equation.push(this.state.input);
 
     let equation = this.state.equation;
-    console.log(equation)
-    let result = Number(equation[0]);
+    console.log(equation);
+    let result = equation[0];
     for (let i = 1; i < equation.length; i += 2) {
       if (equation[i] == 'a') {
-        result += equation[i+1];
+        result += equation[i + 1];
       } else if (equation[i] == 's') {
-        result -= equation[i+1];
-      }
-      else if (equation[i] == 'm') {
-        result *= equation[i+1];
-      }
-      else if (equation[i] == 'd') {
-        result /= equation[i+1];
+        result -= equation[i + 1];
+      } else if (equation[i] == 'm') {
+        result *= equation[i + 1];
+      } else if (equation[i] == 'd') {
+        result /= equation[i + 1];
       }
     }
     this.setState({
-        result: result,
-        input: result.toString(),
-        equation: [],
-        operation: '',
-      });
+      result: result,
+      input: result.toString(),
+      equation: [],
+      operation: '',
+    });
   }
 
   clear() {
@@ -287,14 +279,21 @@ export default class Calculator extends React.Component {
             </View>
             <View style={styles.row}>
               <TouchableOpacity style={styles.longButton} activeOpacity={0.6}>
-                <Text style={styles.longButtonText} onPress={() => this.digit(0)}>0</Text>
+                <Text
+                  style={styles.longButtonText}
+                  onPress={() => this.digit(0)}>
+                  0
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
                 activeOpacity={0.6}>
                 <Text style={styles.buttonText}>,</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.orangeButton} activeOpacity={0.6} onPress={() => this.equals()}>
+              <TouchableOpacity
+                style={styles.orangeButton}
+                activeOpacity={0.6}
+                onPress={() => this.equals()}>
                 <Text style={styles.symbolText}>=</Text>
               </TouchableOpacity>
             </View>
