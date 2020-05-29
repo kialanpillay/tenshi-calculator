@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import 'react-native-gesture-handler';
-
+import call from 'react-native-phone-call';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default class Calculator extends React.Component {
@@ -10,7 +10,6 @@ export default class Calculator extends React.Component {
     this.state = {
       equation: [],
       input: 0,
-      result: 0,
       isOperation: false,
       operation: '',
       solve: false,
@@ -23,6 +22,7 @@ export default class Calculator extends React.Component {
     this.digit = this.digit.bind(this);
     this.equals = this.equals.bind(this);
     this.clear = this.clear.bind(this);
+    this.emergencyCall = this.emergencyCall.bind(this);
   }
 
   digit(value) {
@@ -79,6 +79,37 @@ export default class Calculator extends React.Component {
     }
   }
 
+  emergencyCall(type) {
+    const nationalEmergencyHotline = {
+      number: '10111',
+      prompt: false,
+    };
+
+    const ambulance = {
+      number: '10177',
+      prompt: false,
+    };
+
+    const domesticViolenceHotline = {
+      number: '0800150150',
+      prompt: false,
+    };
+
+    const childline = {
+      number: '0800150150',
+      prompt: false,
+    };
+
+    if (type == 'A') {
+      call(ambulance);
+    } else if (type == 'N') {
+      call(national);
+    }
+    else if (type == 'D') {
+      call(domesticViolenceHotline);
+    }
+  }
+
   divide() {
     if (this.state.isOperation == true) {
       this.state.equation[this.state.equation.length - 1] = 'd';
@@ -108,8 +139,7 @@ export default class Calculator extends React.Component {
       }
     }
     this.setState({
-      result: result,
-      input: result.toString(),
+      input: result,
       equation: [],
       operation: '',
     });
@@ -117,8 +147,7 @@ export default class Calculator extends React.Component {
 
   clear() {
     this.setState({
-      result: 0,
-      input: '0',
+      input: 0,
       equation: [],
       operation: '',
     });
@@ -145,7 +174,8 @@ export default class Calculator extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.lightGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onLongPress={() => this.props.navigation.navigate('Home')}>
                 <Text style={styles.percentageSymbolText}>%</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -155,7 +185,8 @@ export default class Calculator extends React.Component {
                     : styles.orangeButton
                 }
                 activeOpacity={0.6}
-                onPress={() => this.divide()}>
+                onPress={() => this.divide()}
+                onLongPress={() => this.emergencyCall('C')}>
                 <Text
                   style={
                     this.state.operation == 'd'
@@ -192,7 +223,8 @@ export default class Calculator extends React.Component {
                     : styles.orangeButton
                 }
                 activeOpacity={0.6}
-                onPress={() => this.multiply()}>
+                onPress={() => this.multiply()}
+                onLongPress={() => this.emergencyCall('D')}>
                 <Text
                   style={
                     this.state.operation == 'm'
@@ -266,7 +298,8 @@ export default class Calculator extends React.Component {
                     : styles.orangeButton
                 }
                 activeOpacity={0.6}
-                onPress={() => this.add()}>
+                onPress={() => this.add()}
+                onLongPress={() => this.emergencyCall('A')}>
                 <Text
                   style={
                     this.state.operation == 'a'
@@ -287,13 +320,15 @@ export default class Calculator extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.darkGreyButton}
-                activeOpacity={0.6}>
+                activeOpacity={0.6}
+                onPress={() => this.emergencyCall()}>
                 <Text style={styles.buttonText}>,</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.orangeButton}
                 activeOpacity={0.6}
-                onPress={() => this.equals()}>
+                onPress={() => this.equals()}
+                onLongPress={() => this.emergencyCall('N')}>
                 <Text style={styles.symbolText}>=</Text>
               </TouchableOpacity>
             </View>
