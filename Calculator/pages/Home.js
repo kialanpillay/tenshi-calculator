@@ -77,6 +77,7 @@ export default class Calculator extends React.Component {
             </Text>
             <Text style={styles.sectionSubtitle}>Resources</Text>
             <TouchableOpacity
+              activeOpacity={0.6}
               style={styles.link}
               onPress={() =>
                 Linking.openURL(
@@ -86,16 +87,19 @@ export default class Calculator extends React.Component {
               <Text style={styles.linkText}>SAPS Women's Network</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              activeOpacity={0.6}
               style={styles.link}
               onPress={() => Linking.openURL('http://www.powa.co.za')}>
               <Text style={styles.linkText}>People Opposed to Woman Abuse</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              activeOpacity={0.6}
               style={styles.link}
               onPress={() => Linking.openURL('http://www.tears.co.za/')}>
               <Text style={styles.linkText}>TEARS Foundation</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              activeOpacity={0.6}
               style={styles.link}
               onPress={() => Linking.openURL('http://isssasa.org.za')}>
               <Text style={styles.linkText}>Thuthuzela Care Centres</Text>
