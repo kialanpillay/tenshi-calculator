@@ -3,112 +3,105 @@ import {StyleSheet, View, Text, TouchableOpacity, Linking} from 'react-native';
 import 'react-native-gesture-handler';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-export default class Calculator extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <>
-        <View style={styles.body}>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Tenshi Calculator</Text>
-            <Text style={styles.sectionDescription}>
-              An app to get you help when you need it most, quickly and
-              covertly.
-            </Text>
-            <Text style={styles.sectionSubtitle}>How to Use</Text>
-            <View style={styles.row}>
-              <TouchableOpacity
-                style={styles.orangeButton}
-                activeOpacity={0.6}
-                onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>=</Text>
-              </TouchableOpacity>
-              <Text style={styles.text}>
-                Long Press to Call SAPS Emergency Services
-              </Text>
-            </View>
-            <View style={styles.row}>
-              <TouchableOpacity
-                style={styles.orangeButton}
-                activeOpacity={0.6}
-                onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>×</Text>
-              </TouchableOpacity>
-              <Text style={styles.text}>
-                Long Press to Call Domestic Violence Hotline
-              </Text>
-            </View>
-            <View style={styles.row}>
-              <TouchableOpacity
-                style={styles.orangeButton}
-                activeOpacity={0.6}
-                onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>−</Text>
-              </TouchableOpacity>
-              <Text style={styles.text}>
-                Long Press to Call the GBV Command Centre
-              </Text>
-            </View>
-            <View style={styles.row}>
-              <TouchableOpacity
-                style={styles.orangeButton}
-                activeOpacity={0.6}
-                onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>+</Text>
-              </TouchableOpacity>
-              <Text style={styles.text}>Long Press to Call an Ambulance</Text>
-            </View>
-            <View style={styles.row}>
-              <TouchableOpacity
-                style={styles.orangeButton}
-                activeOpacity={0.6}
-                onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>÷</Text>
-              </TouchableOpacity>
-              <Text style={styles.text}>Long Press to Call Childline</Text>
-            </View>
+export default function Home() {
+  return (
+    <>
+      <View style={styles.body}>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Tenshi Calculator</Text>
+          <Text style={styles.sectionDescription}>
+            An app to get you help when you need it most, quickly and covertly.
+          </Text>
+          <Text style={styles.sectionSubtitle}>How to Use</Text>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.orangeButton}
+              activeOpacity={0.6}
+              onPress={() => this.equals()}>
+              <Text style={styles.symbolText}>=</Text>
+            </TouchableOpacity>
             <Text style={styles.text}>
-              Tenshi Calculator also functions as a standard calculator, and can
-              perform all basic arithmetic operations.
+              Long Press to Call SAPS Emergency Services
             </Text>
-            <Text style={styles.sectionSubtitle}>Resources</Text>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              style={styles.link}
-              onPress={() =>
-                Linking.openURL(
-                  'https://www.saps.gov.za/resource_centre/women_children/women_children.php',
-                )
-              }>
-              <Text style={styles.linkText}>SAPS Women's Network</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              style={styles.link}
-              onPress={() => Linking.openURL('http://www.powa.co.za')}>
-              <Text style={styles.linkText}>People Opposed to Woman Abuse</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              style={styles.link}
-              onPress={() => Linking.openURL('http://www.tears.co.za/')}>
-              <Text style={styles.linkText}>TEARS Foundation</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              style={styles.link}
-              onPress={() => Linking.openURL('http://isssasa.org.za')}>
-              <Text style={styles.linkText}>Thuthuzela Care Centres</Text>
-            </TouchableOpacity>
-            <Text style={styles.version}>Version 1.0</Text>
           </View>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.orangeButton}
+              activeOpacity={0.6}
+              onPress={() => this.equals()}>
+              <Text style={styles.symbolText}>×</Text>
+            </TouchableOpacity>
+            <Text style={styles.text}>
+              Long Press to Call Domestic Violence Hotline
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.orangeButton}
+              activeOpacity={0.6}
+              onPress={() => this.equals()}>
+              <Text style={styles.symbolText}>−</Text>
+            </TouchableOpacity>
+            <Text style={styles.text}>
+              Long Press to Call the GBV Command Centre
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.orangeButton}
+              activeOpacity={0.6}
+              onPress={() => this.equals()}>
+              <Text style={styles.symbolText}>+</Text>
+            </TouchableOpacity>
+            <Text style={styles.text}>Long Press to Call an Ambulance</Text>
+          </View>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.orangeButton}
+              activeOpacity={0.6}
+              onPress={() => this.equals()}>
+              <Text style={styles.symbolText}>÷</Text>
+            </TouchableOpacity>
+            <Text style={styles.text}>Long Press to Call Childline</Text>
+          </View>
+          <Text style={styles.text}>
+            Tenshi Calculator also functions as a standard calculator, and can
+            perform all basic arithmetic operations.
+          </Text>
+          <Text style={styles.sectionSubtitle}>Resources</Text>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.link}
+            onPress={() =>
+              Linking.openURL(
+                'https://www.saps.gov.za/resource_centre/women_children/women_children.php',
+              )
+            }>
+            <Text style={styles.linkText}>SAPS Women's Network</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.link}
+            onPress={() => Linking.openURL('http://www.powa.co.za')}>
+            <Text style={styles.linkText}>People Opposed to Woman Abuse</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.link}
+            onPress={() => Linking.openURL('http://www.tears.co.za/')}>
+            <Text style={styles.linkText}>TEARS Foundation</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.link}
+            onPress={() => Linking.openURL('http://isssasa.org.za')}>
+            <Text style={styles.linkText}>Thuthuzela Care Centres</Text>
+          </TouchableOpacity>
+          <Text style={styles.version}>Version 1.0</Text>
         </View>
-      </>
-    );
-  }
+      </View>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
