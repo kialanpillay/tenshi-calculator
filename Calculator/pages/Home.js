@@ -47,6 +47,17 @@ export default class Calculator extends React.Component {
                 style={styles.orangeButton}
                 activeOpacity={0.6}
                 onPress={() => this.equals()}>
+                <Text style={styles.symbolText}>−</Text>
+              </TouchableOpacity>
+              <Text style={styles.text}>
+                Long Press to Call the GBV Command Centre
+              </Text>
+            </View>
+            <View style={styles.row}>
+              <TouchableOpacity
+                style={styles.orangeButton}
+                activeOpacity={0.6}
+                onPress={() => this.equals()}>
                 <Text style={styles.symbolText}>+</Text>
               </TouchableOpacity>
               <Text style={styles.text}>Long Press to Call an Ambulance</Text>
@@ -73,6 +84,21 @@ export default class Calculator extends React.Component {
                 )
               }>
               <Text style={styles.linkText}>SAPS Women's Network</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.link}
+              onPress={() => Linking.openURL('http://www.powa.co.za')}>
+              <Text style={styles.linkText}>People Opposed to Woman Abuse</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.link}
+              onPress={() => Linking.openURL('http://www.tears.co.za/')}>
+              <Text style={styles.linkText}>TEARS Foundation</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.link}
+              onPress={() => Linking.openURL('http://isssasa.org.za')}>
+              <Text style={styles.linkText}>Thuthuzela Care Centres</Text>
             </TouchableOpacity>
             <Text style={styles.version}>Version 1.0</Text>
           </View>
@@ -141,15 +167,16 @@ const styles = StyleSheet.create({
   },
   link: {
     height: 40,
-    width: '60%',
+    width: '80%',
     borderWidth: 2,
     borderColor: '#F39C12',
     borderRadius: 5,
     color: 'black',
+    marginBottom: 10,
   },
   version: {
     bottom: 0,
-    marginTop: 300,
+    marginTop: 140,
     marginBottom: 10,
     fontSize: 12,
     color: 'black',
