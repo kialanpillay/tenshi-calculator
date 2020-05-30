@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   version: {
     bottom: 0,
-    marginTop: 140,
+    marginTop: 100,
     marginBottom: 10,
     fontSize: 12,
     color: 'black',
