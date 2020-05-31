@@ -39,7 +39,7 @@ export default function Home() {
                   }>=</Text>
               </TouchableOpacity>
               <Text style={styles.text}>
-                Long Press to Call SAPS Emergency Services
+                Hold to Call SAPS Emergency Services
               </Text>
             </View>
             <View style={styles.row}>
@@ -58,7 +58,7 @@ export default function Home() {
                   }>×</Text>
               </TouchableOpacity>
               <Text style={styles.text}>
-                Long Press to Call Domestic Violence Hotline
+                Hold to Call Domestic Violence Hotline
               </Text>
             </View>
             <View style={styles.row}>
@@ -80,7 +80,7 @@ export default function Home() {
                 </Text>
               </TouchableOpacity>
               <Text style={styles.text}>
-                Long Press to Call the GBV Command Centre
+                Hold to Call GBV Command Centre
               </Text>
             </View>
             <View style={styles.row}>
@@ -98,7 +98,7 @@ export default function Home() {
                       : styles.androidSymbolText
                   }>+</Text>
               </TouchableOpacity>
-              <Text style={styles.text}>Long Press to Call an Ambulance</Text>
+              <Text style={styles.text}>Hold to Call an Ambulance</Text>
             </View>
             <View style={styles.row}>
               <TouchableOpacity
@@ -115,7 +115,7 @@ export default function Home() {
                       : styles.androidSymbolText
                   }>÷</Text>
               </TouchableOpacity>
-              <Text style={styles.text}>Long Press to Call Childline</Text>
+              <Text style={styles.text}>Hold to Call Childline</Text>
             </View>
             <Text style={styles.text}>
               Tenshi Calculator also functions as a standard calculator, and can
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   sectionContainer: {
-    marginTop: 64,
+    marginTop: 40,
     paddingHorizontal: 24,
   },
   sectionTitle: {
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
       }
     }),
     height: 40,
-    width: '80%',
+    width: '90%',
     borderWidth: 2,
     borderRadius: 5,
     color: 'black',
