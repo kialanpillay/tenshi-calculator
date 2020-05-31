@@ -151,6 +151,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('CALCULATOR_UPLOAD_STORE_FILE')) {
+                storeFile file(CALCULATOR_UPLOAD_STORE_FILE)
+                storePassword CALCULATOR_UPLOAD_STORE_PASSWORD
+                keyAlias CALCULATOR_UPLOAD_KEY_ALIAS
+                keyPassword CALCULATOR_UPLOAD_KEY_PASSWORD
+            }
+        }
     }
     buildTypes {
         debug {
