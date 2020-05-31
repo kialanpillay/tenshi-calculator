@@ -1,5 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Linking, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Linking,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import 'react-native-gesture-handler';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -17,10 +25,18 @@ export default function Home() {
             <Text style={styles.sectionSubtitle}>How to Use</Text>
             <View style={styles.row}>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  Platform.OS == 'ios'
+                    ? styles.orangeButton
+                    : styles.darkGreyButton
+                }
                 activeOpacity={0.6}
                 onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>=</Text>
+                <Text style={
+                    Platform.OS == 'ios'
+                      ? styles.symbolText
+                      : styles.androidSymbolText
+                  }>=</Text>
               </TouchableOpacity>
               <Text style={styles.text}>
                 Long Press to Call SAPS Emergency Services
@@ -28,10 +44,18 @@ export default function Home() {
             </View>
             <View style={styles.row}>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  Platform.OS == 'ios'
+                    ? styles.orangeButton
+                    : styles.darkGreyButton
+                }
                 activeOpacity={0.6}
                 onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>×</Text>
+                <Text style={
+                    Platform.OS == 'ios'
+                      ? styles.symbolText
+                      : styles.androidSymbolText
+                  }>×</Text>
               </TouchableOpacity>
               <Text style={styles.text}>
                 Long Press to Call Domestic Violence Hotline
@@ -39,10 +63,21 @@ export default function Home() {
             </View>
             <View style={styles.row}>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  Platform.OS == 'ios'
+                    ? styles.orangeButton
+                    : styles.darkGreyButton
+                }
                 activeOpacity={0.6}
                 onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>−</Text>
+                <Text
+                  style={
+                    Platform.OS == 'ios'
+                      ? styles.symbolText
+                      : styles.androidSymbolText
+                  }>
+                  −
+                </Text>
               </TouchableOpacity>
               <Text style={styles.text}>
                 Long Press to Call the GBV Command Centre
@@ -50,19 +85,35 @@ export default function Home() {
             </View>
             <View style={styles.row}>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  Platform.OS == 'ios'
+                    ? styles.orangeButton
+                    : styles.darkGreyButton
+                }
                 activeOpacity={0.6}
                 onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>+</Text>
+                <Text style={
+                    Platform.OS == 'ios'
+                      ? styles.symbolText
+                      : styles.androidSymbolText
+                  }>+</Text>
               </TouchableOpacity>
               <Text style={styles.text}>Long Press to Call an Ambulance</Text>
             </View>
             <View style={styles.row}>
               <TouchableOpacity
-                style={styles.orangeButton}
+                style={
+                  Platform.OS == 'ios'
+                    ? styles.orangeButton
+                    : styles.darkGreyButton
+                }
                 activeOpacity={0.6}
                 onPress={() => this.equals()}>
-                <Text style={styles.symbolText}>÷</Text>
+                <Text style={
+                    Platform.OS == 'ios'
+                      ? styles.symbolText
+                      : styles.androidSymbolText
+                  }>÷</Text>
               </TouchableOpacity>
               <Text style={styles.text}>Long Press to Call Childline</Text>
             </View>
@@ -149,9 +200,22 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     marginRight: 10,
   },
+  darkGreyButton: {
+    backgroundColor: '#3c4042',
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
   symbolText: {
     fontSize: 16,
     color: 'black',
+    textAlign: 'center',
+    fontWeight: '500',
+    marginTop: 4,
+  },
+  androidSymbolText: {
+    fontSize: 16,
+    color: 'white',
     textAlign: 'center',
     fontWeight: '500',
     marginTop: 4,

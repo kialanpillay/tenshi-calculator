@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import 'react-native-gesture-handler';
 import call from 'react-native-phone-call';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -163,195 +170,344 @@ export default class Calculator extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        <ScrollView style={styles.scroll}>
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.screenText}>{this.state.input}</Text>
-              <View style={styles.row}>
-                <TouchableOpacity
-                  style={styles.lightGreyButton}
-                  activeOpacity={0.6}
-                  onPress={this.clear}>
-                  <Text style={styles.darkButtonText}>C</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.lightGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.negate()}>
-                  <Text style={styles.darkButtonText}>+-</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.lightGreyButton}
-                  activeOpacity={0.6}
-                  onLongPress={() => this.props.navigation.navigate('Home')}>
-                  <Text style={styles.percentageSymbolText}>%</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={
-                    this.state.operation == 'd'
-                      ? styles.whiteButton
-                      : styles.orangeButton
-                  }
-                  activeOpacity={0.6}
-                  onPress={() => this.divide()}
-                  onLongPress={() => this.emergencyCall('C')}>
-                  <Text
+    if (Platform.OS == 'ios') {
+      return (
+        <>
+          <ScrollView style={ios.scroll}>
+            <View style={ios.body}>
+              <View style={ios.sectionContainer}>
+                <Text style={ios.screenText}>{this.state.input}</Text>
+                <View style={ios.row}>
+                  <TouchableOpacity
+                    style={ios.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={this.clear}>
+                    <Text style={ios.darkButtonText}>C</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.negate()}>
+                    <Text style={ios.darkButtonText}>+-</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.lightGreyButton}
+                    activeOpacity={0.6}
+                    onLongPress={() => this.props.navigation.navigate('Home')}>
+                    <Text style={ios.percentageSymbolText}>%</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={
                       this.state.operation == 'd'
-                        ? styles.invertedText
-                        : styles.symbolText
-                    }>
-                    ÷
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.row}>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(7)}>
-                  <Text style={styles.buttonText}>7</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(8)}>
-                  <Text style={styles.buttonText}>8</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(9)}>
-                  <Text style={styles.buttonText}>9</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={
-                    this.state.operation == 'm'
-                      ? styles.whiteButton
-                      : styles.orangeButton
-                  }
-                  activeOpacity={0.6}
-                  onPress={() => this.multiply()}
-                  onLongPress={() => this.emergencyCall('D')}>
-                  <Text
+                        ? ios.whiteButton
+                        : ios.orangeButton
+                    }
+                    activeOpacity={0.6}
+                    onPress={() => this.divide()}
+                    onLongPress={() => this.emergencyCall('C')}>
+                    <Text
+                      style={
+                        this.state.operation == 'd'
+                          ? ios.invertedText
+                          : ios.symbolText
+                      }>
+                      ÷
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={ios.row}>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(7)}>
+                    <Text style={ios.buttonText}>7</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(8)}>
+                    <Text style={ios.buttonText}>8</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(9)}>
+                    <Text style={ios.buttonText}>9</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={
                       this.state.operation == 'm'
-                        ? styles.invertedText
-                        : styles.symbolText
-                    }>
-                    ×
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.row}>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(4)}>
-                  <Text style={styles.buttonText}>4</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(5)}>
-                  <Text style={styles.buttonText}>5</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(6)}>
-                  <Text style={styles.buttonText}>6</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={
-                    this.state.operation == 's'
-                      ? styles.whiteButton
-                      : styles.orangeButton
-                  }
-                  activeOpacity={0.6}
-                  onPress={() => this.subtract()}
-                  onLongPress={() => this.emergencyCall('G')}>
-                  <Text
+                        ? ios.whiteButton
+                        : ios.orangeButton
+                    }
+                    activeOpacity={0.6}
+                    onPress={() => this.multiply()}
+                    onLongPress={() => this.emergencyCall('D')}>
+                    <Text
+                      style={
+                        this.state.operation == 'm'
+                          ? ios.invertedText
+                          : ios.symbolText
+                      }>
+                      ×
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={ios.row}>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(4)}>
+                    <Text style={ios.buttonText}>4</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(5)}>
+                    <Text style={ios.buttonText}>5</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(6)}>
+                    <Text style={ios.buttonText}>6</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={
                       this.state.operation == 's'
-                        ? styles.invertedText
-                        : styles.symbolText
-                    }>
-                    −
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.row}>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(1)}>
-                  <Text style={styles.buttonText}>1</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(2)}>
-                  <Text style={styles.buttonText}>2</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.digit(3)}>
-                  <Text style={styles.buttonText}>3</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={
-                    this.state.operation == 'a'
-                      ? styles.whiteButton
-                      : styles.orangeButton
-                  }
-                  activeOpacity={0.6}
-                  onPress={() => this.add()}
-                  onLongPress={() => this.emergencyCall('A')}>
-                  <Text
+                        ? ios.whiteButton
+                        : ios.orangeButton
+                    }
+                    activeOpacity={0.6}
+                    onPress={() => this.subtract()}
+                    onLongPress={() => this.emergencyCall('G')}>
+                    <Text
+                      style={
+                        this.state.operation == 's'
+                          ? ios.invertedText
+                          : ios.symbolText
+                      }>
+                      −
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={ios.row}>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(1)}>
+                    <Text style={ios.buttonText}>1</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(2)}>
+                    <Text style={ios.buttonText}>2</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(3)}>
+                    <Text style={ios.buttonText}>3</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={
                       this.state.operation == 'a'
-                        ? styles.invertedText
-                        : styles.symbolText
-                    }>
-                    +
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.row}>
-                <TouchableOpacity style={styles.longButton} activeOpacity={0.6}>
-                  <Text
-                    style={styles.longButtonText}
-                    onPress={() => this.digit(0)}>
-                    0
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.darkGreyButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.emergencyCall()}>
-                  <Text style={styles.buttonText}>,</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.orangeButton}
-                  activeOpacity={0.6}
-                  onPress={() => this.equals()}
-                  onLongPress={() => this.emergencyCall('N')}>
-                  <Text style={styles.symbolText}>=</Text>
-                </TouchableOpacity>
+                        ? ios.whiteButton
+                        : ios.orangeButton
+                    }
+                    activeOpacity={0.6}
+                    onPress={() => this.add()}
+                    onLongPress={() => this.emergencyCall('A')}>
+                    <Text
+                      style={
+                        this.state.operation == 'a'
+                          ? ios.invertedText
+                          : ios.symbolText
+                      }>
+                      +
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={ios.row}>
+                  <TouchableOpacity style={ios.longButton} activeOpacity={0.6}>
+                    <Text
+                      style={ios.longButtonText}
+                      onPress={() => this.digit(0)}>
+                      0
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.emergencyCall()}>
+                    <Text style={ios.buttonText}>,</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={ios.orangeButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.equals()}
+                    onLongPress={() => this.emergencyCall('N')}>
+                    <Text style={ios.symbolText}>=</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
-        </ScrollView>
-      </>
-    );
+          </ScrollView>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <ScrollView style={android.scroll}>
+            <View style={android.body}>
+              <View style={android.sectionContainer}>
+                <Text style={android.screenText}>{this.state.input}</Text>
+                <View style={android.row}>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={this.clear}>
+                    <Text style={android.delButtonText}>DEL</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.negate()}>
+                    <Text style={android.symbolText}>+-</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onLongPress={() => this.props.navigation.navigate('Home')}>
+                    <Text style={android.symbolText}>%</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.divide()}
+                    onLongPress={() => this.emergencyCall('C')}>
+                    <Text style={android.symbolText}>÷</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={android.row}>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(7)}>
+                    <Text style={android.buttonText}>7</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(8)}>
+                    <Text style={android.buttonText}>8</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(9)}>
+                    <Text style={android.buttonText}>9</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.multiply()}
+                    onLongPress={() => this.emergencyCall('D')}>
+                    <Text style={android.symbolText}>×</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={android.row}>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(4)}>
+                    <Text style={android.buttonText}>4</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(5)}>
+                    <Text style={android.buttonText}>5</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(6)}>
+                    <Text style={android.buttonText}>6</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.subtract()}
+                    onLongPress={() => this.emergencyCall('G')}>
+                    <Text style={android.symbolText}>−</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={android.row}>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(1)}>
+                    <Text style={android.buttonText}>1</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(2)}>
+                    <Text style={android.buttonText}>2</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.digit(3)}>
+                    <Text style={android.buttonText}>3</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.add()}
+                    onLongPress={() => this.emergencyCall('A')}>
+                    <Text style={android.symbolText}>+</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={android.row}>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.emergencyCall()}>
+                    <Text style={android.buttonText}>.</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.emergencyCall()}>
+                    <Text style={android.buttonText}>0</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.darkGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.emergencyCall()}>
+                    <Text style={android.buttonText}>,</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.equals()}
+                    onLongPress={() => this.emergencyCall('N')}>
+                    <Text style={android.symbolText}>=</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+        </>
+      );
+    }
   }
 }
 
-const styles = StyleSheet.create({
+const ios = StyleSheet.create({
   body: {
     backgroundColor: Colors.black,
     height: '100%',
@@ -387,7 +543,7 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     color: 'white',
     textAlign: 'right',
-    marginTop: 100,
+    marginTop: 140,
     marginBottom: 16,
   },
   whiteButton: {
@@ -471,5 +627,59 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     fontWeight: '500',
+  },
+});
+
+const android = StyleSheet.create({
+  body: {
+    backgroundColor: Colors.white,
+    height: '100%',
+  },
+  scroll: {
+    backgroundColor: Colors.white,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  sectionContainer: {
+    marginTop: 0,
+  },
+  screenText: {
+    width: '90%',
+    fontSize: 72,
+    color: 'black',
+    textAlign: 'right',
+    marginTop: 44,
+    marginBottom: 20,
+  },
+  lightGreyButton: {
+    backgroundColor: '#606268',
+    width: 105,
+    height: 100,
+    borderRadius: 0,
+  },
+  darkGreyButton: {
+    backgroundColor: '#3c4042',
+    width: 105,
+    height: 100,
+    borderRadius: 0,
+  },
+  buttonText: {
+    fontSize: 36,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 18,
+  },
+  delButtonText: {
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 32,
+  },
+  symbolText: {
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 22,
   },
 });
