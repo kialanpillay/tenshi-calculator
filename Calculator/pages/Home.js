@@ -232,10 +232,17 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   link: {
+    ...Platform.select({
+      ios: {
+        borderColor: '#F39C12',
+      },
+      android: {
+        borderColor: 'rgb(0,227,169)',
+      }
+    }),
     height: 40,
     width: '80%',
     borderWidth: 2,
-    borderColor: '#F39C12',
     borderRadius: 5,
     color: 'black',
     marginBottom: 10,
