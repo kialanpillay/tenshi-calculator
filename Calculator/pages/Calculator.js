@@ -474,21 +474,14 @@ export default class Calculator extends React.Component {
                 <View style={android.row}>
                   <TouchableOpacity
                     style={android.darkGreyButton}
-                    activeOpacity={0.6}
-                    onPress={() => this.emergencyCall()}>
+                    activeOpacity={0.6}>
                     <Text style={android.buttonText}>.</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={android.darkGreyButton}
+                    style={android.longButton}
                     activeOpacity={0.6}
-                    onPress={() => this.emergencyCall()}>
-                    <Text style={android.buttonText}>0</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={android.darkGreyButton}
-                    activeOpacity={0.6}
-                    onPress={() => this.emergencyCall()}>
-                    <Text style={android.buttonText}>,</Text>
+                    onPress={() => this.digit(0)}>
+                    <Text style={android.longButtonText}>0</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={android.lightGreyButton}
@@ -664,6 +657,12 @@ const android = StyleSheet.create({
     height: 100,
     borderRadius: 0,
   },
+  longButton: {
+    backgroundColor: '#3c4042',
+    width: 210,
+    height: 100,
+    borderRadius: 0,
+  },
   buttonText: {
     fontSize: 36,
     color: 'white',
@@ -675,6 +674,13 @@ const android = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 32,
+  },
+  longButtonText: {
+    fontSize: 36,
+    color: 'white',
+    textAlign: 'left',
+    marginTop: 18,
+    marginLeft: 40,
   },
   symbolText: {
     fontSize: 30,
