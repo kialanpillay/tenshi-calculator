@@ -20,6 +20,7 @@ export default class Calculator extends React.Component {
       isOperation: false,
       operation: '',
       solve: false,
+      mode: true,
     };
     this.add = this.add.bind(this);
     this.subtract = this.subtract.bind(this);
@@ -30,6 +31,11 @@ export default class Calculator extends React.Component {
     this.equals = this.equals.bind(this);
     this.clear = this.clear.bind(this);
     this.emergencyCall = this.emergencyCall.bind(this);
+    this.changeMode = this.changeMode.bind(this);
+  }
+
+  changeMode() {
+    this.setState({mode: !this.state.mode});
   }
 
   digit(value) {
@@ -362,34 +368,14 @@ export default class Calculator extends React.Component {
           <ScrollView style={android.scroll}>
             <View style={android.body}>
               <View style={android.sectionContainer}>
+                <TouchableOpacity
+                  style={android.modeButton}
+                  activeOpacity={0.6}
+                  onPress={() => this.changeMode()}
+                  onLongPress={() => this.props.navigation.navigate('Home')}>
+                  <Text style={android.modeText}>{this.state.mode ? 'DEG' : 'RAD'}</Text>
+                </TouchableOpacity>
                 <Text style={android.screenText}>{this.state.input}</Text>
-                <View style={android.row}>
-                  <TouchableOpacity
-                    style={android.lightGreyButton}
-                    activeOpacity={0.6}
-                    onPress={this.clear}>
-                    <Text style={android.delButtonText}>DEL</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={android.lightGreyButton}
-                    activeOpacity={0.6}
-                    onPress={() => this.negate()}>
-                    <Text style={android.symbolText}>+-</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={android.lightGreyButton}
-                    activeOpacity={0.6}
-                    onLongPress={() => this.props.navigation.navigate('Home')}>
-                    <Text style={android.symbolText}>%</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={android.lightGreyButton}
-                    activeOpacity={0.6}
-                    onPress={() => this.divide()}
-                    onLongPress={() => this.emergencyCall('C')}>
-                    <Text style={android.symbolText}>÷</Text>
-                  </TouchableOpacity>
-                </View>
                 <View style={android.row}>
                   <TouchableOpacity
                     style={android.darkGreyButton}
@@ -412,10 +398,11 @@ export default class Calculator extends React.Component {
                   <TouchableOpacity
                     style={android.lightGreyButton}
                     activeOpacity={0.6}
-                    onPress={() => this.multiply()}
-                    onLongPress={() => this.emergencyCall('D')}>
-                    <Text style={android.symbolText}>×</Text>
+                    onPress={() => this.divide()}
+                    onLongPress={() => this.emergencyCall('C')}>
+                    <Text style={android.symbolText}>÷</Text>
                   </TouchableOpacity>
+                  <View style={android.col} />
                 </View>
                 <View style={android.row}>
                   <TouchableOpacity
@@ -439,10 +426,11 @@ export default class Calculator extends React.Component {
                   <TouchableOpacity
                     style={android.lightGreyButton}
                     activeOpacity={0.6}
-                    onPress={() => this.subtract()}
-                    onLongPress={() => this.emergencyCall('G')}>
-                    <Text style={android.symbolText}>−</Text>
+                    onPress={() => this.multiply()}
+                    onLongPress={() => this.emergencyCall('D')}>
+                    <Text style={android.symbolText}>×</Text>
                   </TouchableOpacity>
+                  <View style={android.col} />
                 </View>
                 <View style={android.row}>
                   <TouchableOpacity
@@ -466,30 +454,40 @@ export default class Calculator extends React.Component {
                   <TouchableOpacity
                     style={android.lightGreyButton}
                     activeOpacity={0.6}
-                    onPress={() => this.add()}
-                    onLongPress={() => this.emergencyCall('A')}>
-                    <Text style={android.symbolText}>+</Text>
+                    onPress={() => this.subtract()}
+                    onLongPress={() => this.emergencyCall('G')}>
+                    <Text style={android.symbolText}>−</Text>
                   </TouchableOpacity>
+                  <View style={android.col} />
                 </View>
                 <View style={android.row}>
                   <TouchableOpacity
                     style={android.darkGreyButton}
-                    activeOpacity={0.6}>
-                    <Text style={android.buttonText}>.</Text>
+                    activeOpacity={0.6}
+                    onPress={this.clear}>
+                    <Text style={android.delButtonText}>DEL</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={android.longButton}
+                    style={android.darkGreyButton}
                     activeOpacity={0.6}
                     onPress={() => this.digit(0)}>
-                    <Text style={android.longButtonText}>0</Text>
+                    <Text style={android.buttonText}>0</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={android.lightGreyButton}
+                    style={android.darkGreyButton}
                     activeOpacity={0.6}
                     onPress={() => this.equals()}
                     onLongPress={() => this.emergencyCall('N')}>
                     <Text style={android.symbolText}>=</Text>
                   </TouchableOpacity>
+                  <TouchableOpacity
+                    style={android.lightGreyButton}
+                    activeOpacity={0.6}
+                    onPress={() => this.add()}
+                    onLongPress={() => this.emergencyCall('A')}>
+                    <Text style={android.symbolText}>+</Text>
+                  </TouchableOpacity>
+                  <View style={android.col} />
                 </View>
               </View>
             </View>
@@ -634,6 +632,10 @@ const android = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
+  col: {
+    width: 30,
+    backgroundColor: 'rgb(0,227,169)',
+  },
   sectionContainer: {
     marginTop: 0,
   },
@@ -642,26 +644,29 @@ const android = StyleSheet.create({
     fontSize: 72,
     color: 'black',
     textAlign: 'right',
-    marginTop: 44,
-    marginBottom: 20,
+    marginTop: 62,
+    marginBottom: 10,
+  },
+  modeButton: {
+    margin: 20,
+    backgroundColor: 'white',
+    width: 40,
+    height: 20,
   },
   lightGreyButton: {
     backgroundColor: '#606268',
-    width: 103,
-    height: 100,
-    borderRadius: 0,
+    width: 96,
+    height: 108,
   },
   darkGreyButton: {
     backgroundColor: '#3c4042',
-    width: 103,
-    height: 100,
-    borderRadius: 0,
+    width: 96,
+    height: 108,
   },
-  longButton: {
-    backgroundColor: '#3c4042',
-    width: 206,
-    height: 100,
-    borderRadius: 0,
+  modeText: {
+    fontSize: 16,
+    color: '#3c4042',
+    textAlign: 'center',
   },
   buttonText: {
     fontSize: 36,
@@ -674,13 +679,6 @@ const android = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 32,
-  },
-  longButtonText: {
-    fontSize: 36,
-    color: 'white',
-    textAlign: 'left',
-    marginTop: 18,
-    marginLeft: 40,
   },
   symbolText: {
     fontSize: 30,
