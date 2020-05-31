@@ -1,0 +1,4 @@
+
+*.apk
+*.aab
+Calculator/android/app/release/output.json
