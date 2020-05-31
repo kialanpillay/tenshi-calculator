@@ -686,6 +686,6 @@ const android = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     textAlign: 'center',
-    marginTop: 22,
+    marginTop: 26,
   },
 });
