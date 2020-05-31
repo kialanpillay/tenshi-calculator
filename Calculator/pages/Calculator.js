@@ -647,19 +647,19 @@ const android = StyleSheet.create({
   },
   lightGreyButton: {
     backgroundColor: '#606268',
-    width: 105,
+    width: 103,
     height: 100,
     borderRadius: 0,
   },
   darkGreyButton: {
     backgroundColor: '#3c4042',
-    width: 105,
+    width: 103,
     height: 100,
     borderRadius: 0,
   },
   longButton: {
     backgroundColor: '#3c4042',
-    width: 210,
+    width: 206,
     height: 100,
     borderRadius: 0,
   },
